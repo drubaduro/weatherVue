@@ -1,0 +1,56 @@
+<div v-bind:class="currentTheme">
+
+    <div class="mainpad f fd-c jc-sb" v-bind:class="'visual-' + visualClass" v-if="isUpdated">
+                
+        <div class="block1 f">
+            <div class="block1-1 pdAll-3" style="width: 42vw; flex-shrink: 0;">
+                
+                <div class="thin mrBottom-2"><span>{{weather.name}}</span>, <span class="dashed" @click="updateAll">update</span>d at: <span>{{weatherUpdatedAt.hour + ':' + weatherUpdatedAt.minute}}</span></div>
+                
+                <div class="clock thin mrBottom-1">
+                    <span @click="goFullScreen">{{currentTime.hour}}</span>:<span @click="aaa">{{currentTime.minute}}</span><small>{{currentTime.second}}</small>
+                </div>
+                
+                <div class="f jc-sb thin mrBottom-3">
+                    <div class="">Sunrise: <span>{{sunrise.hour + ':' + sunrise.minute}}</span></div>
+                    <div class="">Sunset: <span>{{sunset.hour + ':' + sunset.minute}}</span></div>
+                </div>
+
+                <div class="f jc-sb thin mrBottom-3">
+                    <div><span class="font-7">{{weather.main.temp.toFixed(1)}}</span><span class="font-3">&deg;C</span></div>
+                    <div><span class="font-7">{{weather.main.humidity}}</span><span class="font-3">%</span></div>
+                </div>
+                <div class="thin">
+                    <div>Cloudness: <span>{{weather.weather[0].description}}</span></div>
+                    <div>Wind: <span>{{weather.wind.speed}}</span> m/s, <span>{{windDirection}}</span></div>
+                    <div v-if="weather.rain">Rain: <span>{{weather.rain['3h']}}</span></div>
+                    <div v-if="weather.snow">Snow: <span>{{weather.snow['3h']}}</span></div>
+                    <!-- /ko -->
+                </div>
+
+            </div>
+            
+            <div class="block1-2 fg-1 pdAll-3">
+                
+                <div class="mrBottom-1">
+                    <div class="thin mrBottom-1">Pressure: {{Math.round(weather.main.pressure * 0.750062)}} mm Hg</div>
+                    <line-chart :chart-data="chart3" :options="opt3" :height="130"></line-chart>
+                </div>
+                
+                <div>
+                    <div class="thin mrBottom-1">Precipitation: {{nextPrecipitation.toFixed(3)}} mm</div>
+                    <line-chart :chart-data="chart1" :options="opt1" :height="130"></line-chart>
+                </div>
+                
+            </div>
+        </div>
+            
+        
+        <div class="block2 pdAll-1">
+                <line-chart :chart-data="chart2" :options="opt2" :height="300"></line-chart>
+        </div>
+
+
+    </div>
+
+</div>
